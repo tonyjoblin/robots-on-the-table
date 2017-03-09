@@ -34,7 +34,7 @@ namespace robot
                 {
                     output.WriteLine(Robot);
                 }
-                else if (!Robot.Placed && command == "PLACE")
+                else if (command == "PLACE")
                 {
                     HandlePlaceCmd(args);
                 }

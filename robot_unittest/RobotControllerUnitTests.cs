@@ -327,5 +327,17 @@ namespace robot_unittest
             Assert.AreEqual("", result.Output);
             Assert.AreEqual(expectedState, result.FinalState);
         }
+
+        [TestMethod]
+        public void Run_DoublePlace_Ignored()
+        {
+            var initialState = new Robot(true, 2, 2, Direction.DirectionName.RIGHT);
+            
+            var result = RunRobot("PLACE 1,1,UP", initialState);
+
+            var expectedState = new Robot(true, 1, 1, Direction.DirectionName.UP);
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(expectedState, result.FinalState);
+        }
     }
 }
