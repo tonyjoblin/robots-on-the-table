@@ -50,6 +50,15 @@ namespace robot
                     newState.TurnRight();
                     Robot = newState;
                 }
+                else if (Robot.Placed && command == "MOVE")
+                {
+                    var newState = new Robot(Robot);
+                    newState.Move();
+                    if (!FallsOff(newState))
+                    {
+                        Robot = newState;
+                    }
+                }
 
             }
             while (true);

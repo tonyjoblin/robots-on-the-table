@@ -255,5 +255,77 @@ namespace robot_unittest
             expectedState = new Robot(true, 2, 2, Direction.DirectionName.UP);
             Assert.AreEqual(expectedState, result.FinalState);
         }
+
+        [TestMethod]
+        public void Run_MoveNotPlaced_Ignored()
+        {
+            var initialState = new Robot();
+
+            var result = RunRobot("MOVE", initialState);
+
+            var expectedState = new Robot();
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(expectedState, result.FinalState);
+        }
+
+        [TestMethod]
+        public void Run_MoveOnTable_Ok()
+        {
+            var initialState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+
+            var result = RunRobot("MOVE", initialState);
+
+            var expectedState = new Robot(true, 2, 3, Direction.DirectionName.UP);
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(expectedState, result.FinalState);
+        }
+
+        [TestMethod]
+        public void Run_MoveUpOffTable_Ignored()
+        {
+            var initialState = new Robot(true, 2, 4, Direction.DirectionName.UP);
+            var expectedState = new Robot(initialState);
+
+            var result = RunRobot("MOVE", initialState);
+
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(expectedState, result.FinalState);
+        }
+
+        [TestMethod]
+        public void Run_MoveLeftOffTable_Ignored()
+        {
+            var initialState = new Robot(true, 0, 2, Direction.DirectionName.LEFT);
+            var expectedState = new Robot(initialState);
+
+            var result = RunRobot("MOVE", initialState);
+
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(expectedState, result.FinalState);
+        }
+
+        [TestMethod]
+        public void Run_MoveDownOffTable_Ignored()
+        {
+            var initialState = new Robot(true, 2, 0, Direction.DirectionName.DOWN);
+            var expectedState = new Robot(initialState);
+
+            var result = RunRobot("MOVE", initialState);
+
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(expectedState, result.FinalState);
+        }
+
+        [TestMethod]
+        public void Run_MoveRightOffTable_Ignored()
+        {
+            var initialState = new Robot(true, 4, 2, Direction.DirectionName.RIGHT);
+            var expectedState = new Robot(initialState);
+
+            var result = RunRobot("MOVE", initialState);
+
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(expectedState, result.FinalState);
+        }
     }
 }
