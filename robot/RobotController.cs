@@ -38,7 +38,7 @@ namespace robot
                 {
                     HandlePlaceCmd(args);
                 }
-                else if (Robot.Placed&& command == "LEFT")
+                else if (Robot.Placed && command == "LEFT")
                 {
                     var newState = new Robot(Robot);
                     newState.TurnLeft();

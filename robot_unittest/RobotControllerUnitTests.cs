@@ -65,10 +65,10 @@ namespace robot_unittest
         {
             var initialState = new Robot();
 
-            var result = RunRobot("PLACE 1,1,UP", initialState);
+            var result = RunRobot("PLACE 1,1,NORTH", initialState);
 
             Assert.AreEqual("", result.Output);
-            var expectedState = new Robot(true, 1, 1, Direction.DirectionName.UP);
+            var expectedState = new Robot(true, 1, 1, Direction.DirectionName.NORTH);
             Assert.AreEqual(expectedState, result.FinalState);
         }
 
@@ -77,7 +77,7 @@ namespace robot_unittest
         {
             var initialState = new Robot();
 
-            var result = RunRobot("PLACE -1,-1,UP", initialState);
+            var result = RunRobot("PLACE -1,-1,NORTH", initialState);
 
             Assert.AreEqual("", result.Output);
             Assert.AreEqual(initialState, result.FinalState);
@@ -91,6 +91,16 @@ namespace robot_unittest
             var result = RunRobot("REPORT", initialState);
 
             Assert.AreEqual("In toy box\r\n", result.Output);
+        }
+
+        [TestMethod]
+        public void Run_ReportOnTable()
+        {
+            var initialState = new Robot(true, 2, 2, Direction.DirectionName.WEST);
+
+            var result = RunRobot("REPORT", initialState);
+
+            Assert.AreEqual("2,2,WEST\r\n", result.Output);
         }
 
         [TestMethod]
@@ -139,19 +149,19 @@ namespace robot_unittest
         {
             var initialState = new Robot();
 
-            var result = RunRobot("place -1,2,UP", initialState);
+            var result = RunRobot("place -1,2,NORTH", initialState);
             Assert.AreEqual("", result.Output);
             Assert.AreEqual(initialState, result.FinalState);
 
-            result = RunRobot("place 2,-1,UP", initialState);
+            result = RunRobot("place 2,-1,NORTH", initialState);
             Assert.AreEqual("", result.Output);
             Assert.AreEqual(initialState, result.FinalState);
 
-            result = RunRobot("place 5,2,UP", initialState);
+            result = RunRobot("place 5,2,NORTH", initialState);
             Assert.AreEqual("", result.Output);
             Assert.AreEqual(initialState, result.FinalState);
 
-            result = RunRobot("place 2,5,UP", initialState);
+            result = RunRobot("place 2,5,NORTH", initialState);
             Assert.AreEqual("", result.Output);
             Assert.AreEqual(initialState, result.FinalState);
         }
@@ -161,8 +171,8 @@ namespace robot_unittest
         {
             var initialState = new Robot();
 
-            var result = RunRobot("place  2 ,2 ,UP ", initialState);
-            var expectedState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            var result = RunRobot("place  2 ,2 ,NORTH ", initialState);
+            var expectedState = new Robot(true, 2, 2, Direction.DirectionName.NORTH);
             Assert.AreEqual("", result.Output);
             Assert.AreEqual(expectedState, result.FinalState);
         }
@@ -171,17 +181,17 @@ namespace robot_unittest
         public void Run_PlaceMixedCaseDirectionArg_Ok()
         {
             var initialState = new Robot();
-            var expectedState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            var expectedState = new Robot(true, 2, 2, Direction.DirectionName.NORTH);
 
-            var result = RunRobot("place 2,2,Up ", initialState);
+            var result = RunRobot("place 2,2,North ", initialState);
             Assert.AreEqual("", result.Output);
             Assert.AreEqual(expectedState, result.FinalState);
 
-            result = RunRobot("place 2,2,up ", initialState);
+            result = RunRobot("place 2,2,north ", initialState);
             Assert.AreEqual("", result.Output);
             Assert.AreEqual(expectedState, result.FinalState);
 
-            result = RunRobot("place 2,2,uP ", initialState);
+            result = RunRobot("place 2,2,nORth ", initialState);
             Assert.AreEqual("", result.Output);
             Assert.AreEqual(expectedState, result.FinalState);
         }
@@ -192,7 +202,7 @@ namespace robot_unittest
             var initialState = new Robot();
             var expectedState = new Robot();
 
-            var result = RunRobot("LEFT", initialState);
+            var result = RunRobot("WEST", initialState);
             Assert.AreEqual("", result.Output);
             Assert.AreEqual(expectedState, result.FinalState);
         }
@@ -200,24 +210,24 @@ namespace robot_unittest
         [TestMethod]
         public void Run_TurnLeft_Rotates()
         {
-            var initialState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            var initialState = new Robot(true, 2, 2, Direction.DirectionName.NORTH);
             var result = RunRobot("LEFT", initialState);
-            var expectedState = new Robot(true, 2, 2, Direction.DirectionName.LEFT);
+            var expectedState = new Robot(true, 2, 2, Direction.DirectionName.WEST);
             Assert.AreEqual(expectedState, result.FinalState);
 
-            initialState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            initialState = new Robot(true, 2, 2, Direction.DirectionName.NORTH);
             result = RunRobot("LEFT\r\nLEFT", initialState);
-            expectedState = new Robot(true, 2, 2, Direction.DirectionName.DOWN);
+            expectedState = new Robot(true, 2, 2, Direction.DirectionName.SOUTH);
             Assert.AreEqual(expectedState, result.FinalState);
 
-            initialState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            initialState = new Robot(true, 2, 2, Direction.DirectionName.NORTH);
             result = RunRobot("LEFT\r\nLEFT\r\nLEFT", initialState);
-            expectedState = new Robot(true, 2, 2, Direction.DirectionName.RIGHT);
+            expectedState = new Robot(true, 2, 2, Direction.DirectionName.EAST);
             Assert.AreEqual(expectedState, result.FinalState);
 
-            initialState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            initialState = new Robot(true, 2, 2, Direction.DirectionName.NORTH);
             result = RunRobot("LEFT\r\nLEFT\r\nLEFT\r\nLEFT", initialState);
-            expectedState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            expectedState = new Robot(true, 2, 2, Direction.DirectionName.NORTH);
             Assert.AreEqual(expectedState, result.FinalState);
         }
 
@@ -227,7 +237,7 @@ namespace robot_unittest
             var initialState = new Robot();
             var expectedState = new Robot();
 
-            var result = RunRobot("RIGHT", initialState);
+            var result = RunRobot("EAST", initialState);
             Assert.AreEqual("", result.Output);
             Assert.AreEqual(expectedState, result.FinalState);
         }
@@ -235,24 +245,24 @@ namespace robot_unittest
         [TestMethod]
         public void Run_TurnRight_Rotates()
         {
-            var initialState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            var initialState = new Robot(true, 2, 2, Direction.DirectionName.NORTH);
             var result = RunRobot("RIGHT", initialState);
-            var expectedState = new Robot(true, 2, 2, Direction.DirectionName.RIGHT);
+            var expectedState = new Robot(true, 2, 2, Direction.DirectionName.EAST);
             Assert.AreEqual(expectedState, result.FinalState);
 
-            initialState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            initialState = new Robot(true, 2, 2, Direction.DirectionName.NORTH);
             result = RunRobot("RIGHT\r\nRIGHT", initialState);
-            expectedState = new Robot(true, 2, 2, Direction.DirectionName.DOWN);
+            expectedState = new Robot(true, 2, 2, Direction.DirectionName.SOUTH);
             Assert.AreEqual(expectedState, result.FinalState);
 
-            initialState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            initialState = new Robot(true, 2, 2, Direction.DirectionName.NORTH);
             result = RunRobot("RIGHT\r\nRIGHT\r\nRIGHT", initialState);
-            expectedState = new Robot(true, 2, 2, Direction.DirectionName.LEFT);
+            expectedState = new Robot(true, 2, 2, Direction.DirectionName.WEST);
             Assert.AreEqual(expectedState, result.FinalState);
 
-            initialState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            initialState = new Robot(true, 2, 2, Direction.DirectionName.NORTH);
             result = RunRobot("RIGHT\r\nRIGHT\r\nRIGHT\r\nRIGHT", initialState);
-            expectedState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            expectedState = new Robot(true, 2, 2, Direction.DirectionName.NORTH);
             Assert.AreEqual(expectedState, result.FinalState);
         }
 
@@ -271,11 +281,11 @@ namespace robot_unittest
         [TestMethod]
         public void Run_MoveOnTable_Ok()
         {
-            var initialState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            var initialState = new Robot(true, 2, 2, Direction.DirectionName.NORTH);
 
             var result = RunRobot("MOVE", initialState);
 
-            var expectedState = new Robot(true, 2, 3, Direction.DirectionName.UP);
+            var expectedState = new Robot(true, 2, 3, Direction.DirectionName.NORTH);
             Assert.AreEqual("", result.Output);
             Assert.AreEqual(expectedState, result.FinalState);
         }
@@ -283,7 +293,7 @@ namespace robot_unittest
         [TestMethod]
         public void Run_MoveUpOffTable_Ignored()
         {
-            var initialState = new Robot(true, 2, 4, Direction.DirectionName.UP);
+            var initialState = new Robot(true, 2, 4, Direction.DirectionName.NORTH);
             var expectedState = new Robot(initialState);
 
             var result = RunRobot("MOVE", initialState);
@@ -295,7 +305,7 @@ namespace robot_unittest
         [TestMethod]
         public void Run_MoveLeftOffTable_Ignored()
         {
-            var initialState = new Robot(true, 0, 2, Direction.DirectionName.LEFT);
+            var initialState = new Robot(true, 0, 2, Direction.DirectionName.WEST);
             var expectedState = new Robot(initialState);
 
             var result = RunRobot("MOVE", initialState);
@@ -307,7 +317,7 @@ namespace robot_unittest
         [TestMethod]
         public void Run_MoveDownOffTable_Ignored()
         {
-            var initialState = new Robot(true, 2, 0, Direction.DirectionName.DOWN);
+            var initialState = new Robot(true, 2, 0, Direction.DirectionName.SOUTH);
             var expectedState = new Robot(initialState);
 
             var result = RunRobot("MOVE", initialState);
@@ -319,7 +329,7 @@ namespace robot_unittest
         [TestMethod]
         public void Run_MoveRightOffTable_Ignored()
         {
-            var initialState = new Robot(true, 4, 2, Direction.DirectionName.RIGHT);
+            var initialState = new Robot(true, 4, 2, Direction.DirectionName.EAST);
             var expectedState = new Robot(initialState);
 
             var result = RunRobot("MOVE", initialState);
@@ -331,12 +341,51 @@ namespace robot_unittest
         [TestMethod]
         public void Run_DoublePlace_Ignored()
         {
-            var initialState = new Robot(true, 2, 2, Direction.DirectionName.RIGHT);
+            var initialState = new Robot(true, 2, 2, Direction.DirectionName.EAST);
             
-            var result = RunRobot("PLACE 1,1,UP", initialState);
+            var result = RunRobot("PLACE 1,1,NORTH", initialState);
 
-            var expectedState = new Robot(true, 1, 1, Direction.DirectionName.UP);
+            var expectedState = new Robot(true, 1, 1, Direction.DirectionName.NORTH);
             Assert.AreEqual("", result.Output);
+            Assert.AreEqual(expectedState, result.FinalState);
+        }
+
+        [TestMethod]
+        public void Run_Example_A()
+        {
+            var initialState = new Robot();
+
+            var result = RunRobot("PLACE 0,0,NORTH\r\nMOVE\r\nREPORT", initialState);
+
+            var expectedState = new Robot(true, 0, 1, Direction.DirectionName.NORTH);
+            Assert.AreEqual("0,1,NORTH\r\n", result.Output);
+            Assert.AreEqual(expectedState, result.FinalState);
+        }
+
+        [TestMethod]
+        public void Run_Example_B()
+        {
+            var initialState = new Robot();
+
+            var result = RunRobot("PLACE 0,0,NORTH\r\nLEFT\r\nREPORT", initialState);
+
+            var expectedState = new Robot(true, 0, 0, Direction.DirectionName.WEST);
+            Assert.AreEqual("0,0,WEST\r\n", result.Output);
+            Assert.AreEqual(expectedState, result.FinalState);
+        }
+
+        [TestMethod]
+        public void Run_Example_C()
+        {
+            var initialState = new Robot();
+
+            var result = RunRobot(
+                "PLACE 1,2,EAST\r\nMOVE\r\nMOVE\r\nLEFT\r\nMOVE\r\nREPORT",
+                initialState
+                );
+
+            var expectedState = new Robot(true, 3, 3, Direction.DirectionName.NORTH);
+            Assert.AreEqual("3,3,NORTH\r\n", result.Output);
             Assert.AreEqual(expectedState, result.FinalState);
         }
     }

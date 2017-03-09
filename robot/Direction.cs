@@ -8,22 +8,22 @@ namespace robot
 {
     class Direction
     {
-        public enum DirectionName { UP, LEFT, DOWN, RIGHT };
+        public enum DirectionName { NORTH, WEST, SOUTH, EAST };
 
         public static DirectionName TurnLeft(DirectionName facing)
         {
-            if (facing == DirectionName.RIGHT)
+            if (facing == DirectionName.EAST)
             {
-                return DirectionName.UP;
+                return DirectionName.NORTH;
             }
             return ++facing;
         }
 
         public static DirectionName TurnRight(DirectionName facing)
         {
-            if (facing == DirectionName.UP)
+            if (facing == DirectionName.NORTH)
             {
-                return DirectionName.RIGHT;
+                return DirectionName.EAST;
             }
             return --facing;
         }

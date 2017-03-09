@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace robot
 {
@@ -48,16 +44,16 @@ namespace robot
         {
             switch (Facing)
             {
-                case Direction.DirectionName.UP:
+                case Direction.DirectionName.NORTH:
                     Y++;
                     break;
-                case Direction.DirectionName.DOWN:
+                case Direction.DirectionName.SOUTH:
                     Y--;
                     break;
-                case Direction.DirectionName.LEFT:
+                case Direction.DirectionName.WEST:
                     X--;
                     break;
-                case Direction.DirectionName.RIGHT:
+                case Direction.DirectionName.EAST:
                     X++;
                     break;
                 default:
@@ -81,7 +77,7 @@ namespace robot
             {
                 return "In toy box";
             }
-            return string.Format("{0}, {1} facing {2}", X, Y, Facing);
+            return string.Format("{0},{1},{2}", X, Y, Facing);
         }
 
         public override bool Equals(object other)
