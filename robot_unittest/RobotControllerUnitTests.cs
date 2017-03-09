@@ -122,5 +122,68 @@ namespace robot_unittest
 
             Assert.AreEqual("In toy box\r\n", result.Output);
         }
+
+        [TestMethod]
+        public void Run_PlaceNoArgs_Ignore()
+        {
+            var initialState = new Robot();
+
+            var result = RunRobot("place", initialState);
+
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(initialState, result.FinalState);
+        }
+
+        [TestMethod]
+        public void Run_PlaceOffTable_Ignore()
+        {
+            var initialState = new Robot();
+
+            var result = RunRobot("place -1,2,UP", initialState);
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(initialState, result.FinalState);
+
+            result = RunRobot("place 2,-1,UP", initialState);
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(initialState, result.FinalState);
+
+            result = RunRobot("place 5,2,UP", initialState);
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(initialState, result.FinalState);
+
+            result = RunRobot("place 2,5,UP", initialState);
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(initialState, result.FinalState);
+        }
+
+        [TestMethod]
+        public void Run_PlaceWhiteSpaceAroundArgs_Ok()
+        {
+            var initialState = new Robot();
+
+            var result = RunRobot("place  2 ,2 ,UP ", initialState);
+            var expectedState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(expectedState, result.FinalState);
+        }
+
+        [TestMethod]
+        public void Run_PlaceMixedCaseDirectionArg_Ok()
+        {
+            var initialState = new Robot();
+            var expectedState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+
+            var result = RunRobot("place 2,2,Up ", initialState);
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(expectedState, result.FinalState);
+
+            result = RunRobot("place 2,2,up ", initialState);
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(expectedState, result.FinalState);
+
+            result = RunRobot("place 2,2,uP ", initialState);
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(expectedState, result.FinalState);
+        }
     }
 }

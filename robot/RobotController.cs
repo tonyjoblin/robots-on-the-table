@@ -28,14 +28,63 @@ namespace robot
 
                 var commandAndArgs = ParseCommand(inputString);
                 var command = commandAndArgs.Item1;
+                var args = commandAndArgs.Item2;
 
                 if (command == "REPORT")
                 {
                     output.WriteLine(Robot);
                 }
+                else if (!Robot.Placed && command == "PLACE")
+                {
+                    HandlePlaceCmd(args);
+                }
 
             }
             while (true);
+        }
+
+        private void HandlePlaceCmd(string args)
+        {
+            if (args == null)
+            {
+                return;
+            }
+            var parts = args.Split(',');
+            if (parts.Length != 3)
+            {
+                return;
+            }
+
+            int x;
+            if (!int.TryParse(parts[0], out x))
+            {
+                return;
+            }
+
+            int y;
+            if (!int.TryParse(parts[1], out y))
+            {
+                return;
+            }
+
+            Direction.DirectionName dir;
+            if (!Direction.DirectionName.TryParse(parts[2].ToUpper(), false, out dir))
+            {
+                return;
+            }
+
+            var newState = new Robot(Robot);
+            newState.Place(x, y, dir);
+            if (FallsOff(newState))
+            {
+                return;
+            }
+            Robot = newState;
+        }
+
+        private bool FallsOff(Robot newState)
+        {
+            return newState.X < 0 || newState.Y < 0 || newState.X > 4 || newState.Y > 4;
         }
 
         public Robot Robot { get; private set; }
