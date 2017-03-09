@@ -15,6 +15,16 @@ namespace robot_unittest
         }
 
         [TestMethod]
+        public void ConstructorWithInitialState_SetsState()
+        {
+            var r = new Robot(true, -1, 17, Direction.DirectionName.LEFT);
+            Assert.AreEqual(true, r.Placed);
+            Assert.AreEqual(-1, r.X);
+            Assert.AreEqual(17, r.Y);
+            Assert.AreEqual(Direction.DirectionName.LEFT, r.Facing);
+        }
+
+        [TestMethod]
         public void Place_SetsState()
         {
             int x = 3;
@@ -111,6 +121,43 @@ namespace robot_unittest
         {
             //TODO
             Assert.Fail();
+        }
+
+        [TestMethod]
+        public void ToString_NotPlaced()
+        {
+            var robot = new Robot();
+
+            var toString = robot.ToString();
+
+            Assert.AreEqual("In toy box", toString);
+        }
+
+        [TestMethod]
+        public void ToString_Placed_SomeWhere()
+        {
+            var robot = new Robot();
+            robot.Place(3, 7, Direction.DirectionName.DOWN);
+
+            var toString = robot.ToString();
+
+            Assert.AreEqual(0, toString.CompareTo("3, 7 facing DOWN"));
+        }
+
+        [TestMethod]
+        public void Equals()
+        {
+            var robot = new Robot();
+            robot.Place(3, 7, Direction.DirectionName.DOWN);
+            var inToyBox = new Robot();
+            var somewhereElse = new Robot();
+            robot.Place(2, 4, Direction.DirectionName.LEFT);
+
+            Assert.AreEqual(true, robot.Equals(robot));
+            Assert.AreEqual(false, robot.Equals(somewhereElse));
+            Assert.AreEqual(false, robot.Equals(inToyBox));
+            Assert.AreEqual(false, somewhereElse.Equals(robot));
+            Assert.AreEqual(false, inToyBox.Equals(robot));
         }
     }
 }

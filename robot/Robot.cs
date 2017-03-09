@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace robot
 {
-    class Robot
+    class Robot: IEquatable<Robot>
     {
         public Robot()
         {
@@ -19,6 +19,14 @@ namespace robot
             Y = initialState.Y;
             Facing = initialState.Facing;
             Placed = initialState.Placed;
+        }
+
+        public Robot(bool placed, int x, int y, Direction.DirectionName facing)
+        {
+            Placed = placed;
+            X = x;
+            Y = y;
+            Facing = facing;
         }
 
         public int X { get; private set; }
@@ -65,6 +73,30 @@ namespace robot
         public void TurnRight()
         {
             Facing = Direction.TurnRight(Facing);
+        }
+
+        public override string ToString()
+        {
+            if (!Placed)
+            {
+                return "In toy box";
+            }
+            return string.Format("{0}, {1} facing {2}", X, Y, Facing);
+        }
+
+        public override bool Equals(object other)
+        {
+            return Equals(other as Robot);
+        }
+
+        public bool Equals(Robot other)
+        {
+            return ToString().CompareTo(other.ToString()) == 0;
+        }
+
+        public override int GetHashCode()
+        {
+            return ToString().GetHashCode();
         }
     }
 }
