@@ -24,13 +24,11 @@ namespace robot
         public int X { get; private set; }
         public int Y { get; private set; }
         
-
-        public enum Direction { UP, LEFT, DOWN, RIGHT };
-        public Direction Facing { get; private set; }
+        public Direction.DirectionName Facing { get; private set; }
 
         public bool Placed { get; private set; }
 
-        public void Place(int x, int y, Direction facing)
+        public void Place(int x, int y, Direction.DirectionName facing)
         {
             X = x;
             Y = y;
@@ -42,21 +40,31 @@ namespace robot
         {
             switch (Facing)
             {
-                case Direction.UP:
+                case Direction.DirectionName.UP:
                     Y++;
                     break;
-                case Direction.DOWN:
+                case Direction.DirectionName.DOWN:
                     Y--;
                     break;
-                case Direction.LEFT:
+                case Direction.DirectionName.LEFT:
                     X--;
                     break;
-                case Direction.RIGHT:
+                case Direction.DirectionName.RIGHT:
                     X++;
                     break;
                 default:
                     break;
             };
+        }
+
+        public void TurnLeft()
+        {
+            Facing = Direction.TurnLeft(Facing);
+        }
+
+        public void TurnRight()
+        {
+            Facing = Direction.TurnRight(Facing);
         }
     }
 }

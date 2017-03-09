@@ -19,7 +19,7 @@ namespace robot_unittest
         {
             int x = 3;
             int y = 7;
-            var facing = Robot.Direction.DOWN;
+            var facing = Direction.DirectionName.DOWN;
             var r = new Robot();
 
             r.Place(x, y, facing);
@@ -35,7 +35,7 @@ namespace robot_unittest
         {
             int x = 3;
             int y = 7;
-            var facing = Robot.Direction.DOWN;
+            var facing = Direction.DirectionName.DOWN;
             var initialState = new Robot();
             initialState.Place(x, y, facing);
 
@@ -51,52 +51,66 @@ namespace robot_unittest
         public void Move_Up()
         {
             var robot = new Robot();
-            robot.Place(3, 7, Robot.Direction.UP);
+            robot.Place(3, 7, Direction.DirectionName.UP);
 
             robot.Move();
 
             Assert.AreEqual(3, robot.X);
             Assert.AreEqual(8, robot.Y);
-            Assert.AreEqual(Robot.Direction.UP, robot.Facing);
+            Assert.AreEqual(Direction.DirectionName.UP, robot.Facing);
         }
 
         [TestMethod]
         public void Move_Down()
         {
             var robot = new Robot();
-            robot.Place(3, 7, Robot.Direction.DOWN);
+            robot.Place(3, 7, Direction.DirectionName.DOWN);
 
             robot.Move();
 
             Assert.AreEqual(3, robot.X);
             Assert.AreEqual(6, robot.Y);
-            Assert.AreEqual(Robot.Direction.DOWN, robot.Facing);
+            Assert.AreEqual(Direction.DirectionName.DOWN, robot.Facing);
         }
 
         [TestMethod]
         public void Move_Left()
         {
             var robot = new Robot();
-            robot.Place(3, 7, Robot.Direction.LEFT);
+            robot.Place(3, 7, Direction.DirectionName.LEFT);
 
             robot.Move();
 
             Assert.AreEqual(2, robot.X);
             Assert.AreEqual(7, robot.Y);
-            Assert.AreEqual(Robot.Direction.LEFT, robot.Facing);
+            Assert.AreEqual(Direction.DirectionName.LEFT, robot.Facing);
         }
 
         [TestMethod]
         public void Move_Right()
         {
             var robot = new Robot();
-            robot.Place(3, 7, Robot.Direction.RIGHT);
+            robot.Place(3, 7, Direction.DirectionName.RIGHT);
 
             robot.Move();
 
             Assert.AreEqual(4, robot.X);
             Assert.AreEqual(7, robot.Y);
-            Assert.AreEqual(Robot.Direction.RIGHT, robot.Facing);
+            Assert.AreEqual(Direction.DirectionName.RIGHT, robot.Facing);
+        }
+
+        [TestMethod]
+        public void TurnLeft()
+        {
+            //TODO
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void TurnRight()
+        {
+            //TODO
+            Assert.Fail();
         }
     }
 }

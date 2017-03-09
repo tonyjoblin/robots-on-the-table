@@ -51,6 +51,7 @@
     <Compile Include="RobotControllerUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RobotUnitTest.cs" />
+    <Compile Include="DirectionUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
