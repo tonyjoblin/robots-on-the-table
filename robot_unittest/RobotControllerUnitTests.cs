@@ -185,5 +185,41 @@ namespace robot_unittest
             Assert.AreEqual("", result.Output);
             Assert.AreEqual(expectedState, result.FinalState);
         }
+
+        [TestMethod]
+        public void Run_TurnLeftWhenNotPlaced_Ignored()
+        {
+            var initialState = new Robot();
+            var expectedState = new Robot();
+
+            var result = RunRobot("LEFT", initialState);
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(expectedState, result.FinalState);
+        }
+
+        [TestMethod]
+        public void Run_TurnLeft_Rotates()
+        {
+            var initialState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            var result = RunRobot("LEFT", initialState);
+            var expectedState = new Robot(true, 2, 2, Direction.DirectionName.LEFT);
+            Assert.AreEqual(expectedState, result.FinalState);
+
+            initialState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            result = RunRobot("LEFT\r\nLEFT", initialState);
+            expectedState = new Robot(true, 2, 2, Direction.DirectionName.DOWN);
+            Assert.AreEqual(expectedState, result.FinalState);
+
+            initialState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            result = RunRobot("LEFT\r\nLEFT\r\nLEFT", initialState);
+            expectedState = new Robot(true, 2, 2, Direction.DirectionName.RIGHT);
+            Assert.AreEqual(expectedState, result.FinalState);
+
+            initialState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            result = RunRobot("LEFT\r\nLEFT\r\nLEFT\r\nLEFT", initialState);
+            expectedState = new Robot(true, 2, 2, Direction.DirectionName.UP);
+            Assert.AreEqual(expectedState, result.FinalState);
+        }
+
     }
 }

@@ -10,7 +10,7 @@ namespace robot
     {
         public RobotController(Robot robot)
         {
-            Robot = robot;
+            Robot = new Robot(robot);
         }
         public void Run(System.IO.TextReader input, System.IO.TextWriter output)
         {
@@ -37,6 +37,12 @@ namespace robot
                 else if (!Robot.Placed && command == "PLACE")
                 {
                     HandlePlaceCmd(args);
+                }
+                else if (Robot.Placed&& command == "LEFT")
+                {
+                    var newState = new Robot(Robot);
+                    newState.TurnLeft();
+                    Robot = newState;
                 }
 
             }

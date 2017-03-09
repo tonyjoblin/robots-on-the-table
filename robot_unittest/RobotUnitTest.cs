@@ -110,20 +110,6 @@ namespace robot_unittest
         }
 
         [TestMethod]
-        public void TurnLeft()
-        {
-            //TODO
-            Assert.Fail();
-        }
-
-        [TestMethod]
-        public void TurnRight()
-        {
-            //TODO
-            Assert.Fail();
-        }
-
-        [TestMethod]
         public void ToString_NotPlaced()
         {
             var robot = new Robot();
