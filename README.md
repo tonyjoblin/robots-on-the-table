@@ -23,6 +23,7 @@ REPORT
 * REPORT will announce the X,Y and orientation of the robot.
 * A robot that is not on the table can choose to ignore the MOVE, LEFT, RIGHT and REPORT commands.
 * The robot must not fall off the table during movement. This also includes the initial placement of the toy robot. Any move that would cause the robot to fall must be ignored.
+* *Bonus* EXIT abouts command processing and terminates the program.
 
 ### Example Input and Output:
 

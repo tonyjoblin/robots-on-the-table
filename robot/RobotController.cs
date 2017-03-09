@@ -59,6 +59,10 @@ namespace robot
                         Robot = newState;
                     }
                 }
+                else if (command == "EXIT")
+                {
+                    break;
+                }
 
             }
             while (true);

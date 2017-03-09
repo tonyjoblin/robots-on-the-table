@@ -388,5 +388,17 @@ namespace robot_unittest
             Assert.AreEqual("3,3,NORTH\r\n", result.Output);
             Assert.AreEqual(expectedState, result.FinalState);
         }
+
+        [TestMethod]
+        public void Run_ExitCommand_AbortCommandProcessing()
+        {
+            var initialState = new Robot(true, 2, 2, Direction.DirectionName.EAST);
+
+            var result = RunRobot("EXIT\r\nREPORT", initialState);
+
+            var expectedState = new Robot(true, 2, 2, Direction.DirectionName.EAST);
+            Assert.AreEqual("", result.Output);
+            Assert.AreEqual(expectedState, result.FinalState);
+        }
     }
 }
