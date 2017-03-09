@@ -44,6 +44,12 @@ namespace robot
                     newState.TurnLeft();
                     Robot = newState;
                 }
+                else if (Robot.Placed && command == "RIGHT")
+                {
+                    var newState = new Robot(Robot);
+                    newState.TurnRight();
+                    Robot = newState;
+                }
 
             }
             while (true);
