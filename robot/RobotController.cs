@@ -8,11 +8,9 @@ namespace robot
 {
     class RobotController
     {
-        private Robot m_robot;
-
         public RobotController(Robot robot)
         {
-            m_robot = robot;
+            Robot = robot;
         }
         public void Run(System.IO.TextReader input, System.IO.TextWriter output)
         {
@@ -22,13 +20,38 @@ namespace robot
             }
             do
             {
-                var command = input.ReadLine();
-                if (command == null)
+                var inputString = input.ReadLine();
+                if (inputString == null)
                 {
                     break;
                 }
+
+                var commandAndArgs = ParseCommand(inputString);
+                var command = commandAndArgs.Item1;
+
+                if (command == "REPORT")
+                {
+                    output.WriteLine(Robot);
+                }
+
             }
             while (true);
+        }
+
+        public Robot Robot { get; private set; }
+
+        private Tuple<string, string> ParseCommand(string input)
+        {
+            char[] ws = new char[] { ' ' };
+            input = input.TrimStart(ws);
+
+            int pos = input.IndexOf(' ');
+            if (pos == -1)
+            {
+                return Tuple.Create(input.ToUpper(), null as string);
+            }
+
+            return Tuple.Create(input.Substring(0, pos).ToUpper(), input.Substring(pos + 1));
         }
     }
 }
